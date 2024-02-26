@@ -2,26 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
-.editor-line > h1 {
+.tiptap > h1 {
   @apply text-4xl font-semibold;
 }
 
-.editor-line > h2 {
+.tiptap > h2 {
   @apply text-2xl font-semibold;
 }
 
-.editor-line > h3 {
+.tiptap > h3 {
   @apply text-xl font-semibold;
 }
 
-.editor-line > h4 {
+.tiptap > h4 {
   @apply text-lg font-semibold;
 }
 
-.editor-line > h5 {
+.tiptap > h5 {
   @apply font-semibold;
 }
 
-.editor-line > h6 {
+.tiptap > h6 {
   @apply text-sm font-semibold;
 }
