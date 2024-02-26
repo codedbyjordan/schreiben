@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.editor-line > h1 {
+  @apply text-4xl font-semibold;
+}
+
+.editor-line > h2 {
+  @apply text-2xl font-semibold;
+}
+
+.editor-line > h3 {
+  @apply text-xl font-semibold;
+}
+
+.editor-line > h4 {
+  @apply text-lg font-semibold;
+}
+
+.editor-line > h5 {
+  @apply font-semibold;
+}
+
+.editor-line > h6 {
+  @apply text-sm font-semibold;
+}
