@@ -15,16 +15,34 @@ export function Editor() {
     });
   };
 
+  const moveUpLine = () => {
+    setActiveLine((activeLine) => {
+      const keys = Array.from(lines.keys());
+      const index = keys.indexOf(activeLine);
+      if (index === 0) return activeLine;
+      return keys[index - 1];
+    });
+  };
+
+  const moveDownLine = () => {
+    setActiveLine((activeLine) => {
+      const keys = Array.from(lines.keys());
+      const index = keys.indexOf(activeLine);
+      if (index === keys.length - 1) return activeLine;
+      return keys[index + 1];
+    });
+  };
+
   useRegisterEditorKeybinds({
     handleKeyDown: (e) => {
       switch (e.key) {
         case "ArrowUp":
           e.preventDefault();
-          // moveUpLine();
+          moveUpLine();
           break;
         case "ArrowDown":
           e.preventDefault();
-          // moveDownLine();
+          moveDownLine();
           break;
         case "Enter":
           e.preventDefault();
