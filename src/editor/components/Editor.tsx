@@ -1,7 +1,6 @@
-import { useState } from "react";
-import { Line } from "./Line";
-import { useRegisterEditorKeybinds } from "../hooks/useRegisterEditorKeybinds";
+import { useEffect, useState } from "react";
 import { useImmer } from "use-immer";
+import { Line } from "./Line";
 
 export function Editor() {
   const [lines, setLines] = useImmer<Map<string, string>>(
@@ -37,26 +36,47 @@ export function Editor() {
     });
   };
 
-  useRegisterEditorKeybinds({
-    handleKeyDown: (e) => {
-      switch (e.key) {
-        case "ArrowUp":
-          e.preventDefault();
-          moveUpLine();
-          break;
-        case "ArrowDown":
-          e.preventDefault();
-          moveDownLine();
-          break;
-        case "Enter":
-          e.preventDefault();
-          addNewLine();
-          break;
-        default:
-          break;
-      }
-    },
-  });
+  const isEmptyLine = (lineId: string) => {
+    console.log(lines.get(lineId));
+    return lines.get(lineId) === "";
+  };
+
+  const deleteLine = (lineId: string) => {
+    setLines((lines) => {
+      lines.delete(lineId);
+    });
+  };
+
+  const handleKeyDown = (e: KeyboardEvent) => {
+    switch (e.key) {
+      case "ArrowUp":
+        e.preventDefault();
+        moveUpLine();
+        break;
+      case "ArrowDown":
+        e.preventDefault();
+        moveDownLine();
+        break;
+      case "Enter":
+        e.preventDefault();
+        addNewLine();
+        break;
+      case "Backspace":
+        e.preventDefault();
+        if (isEmptyLine(activeLine)) deleteLine(activeLine);
+        break;
+      default:
+        break;
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handleKeyDown]);
 
   const setLineContent = (id: string, newContent: string) => {
     setLines((lines) => {
