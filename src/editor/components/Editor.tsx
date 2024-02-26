@@ -36,17 +36,6 @@ export function Editor() {
     });
   };
 
-  const isEmptyLine = (lineId: string) => {
-    console.log(lines.get(lineId));
-    return lines.get(lineId) === "";
-  };
-
-  const deleteLine = (lineId: string) => {
-    setLines((lines) => {
-      lines.delete(lineId);
-    });
-  };
-
   const handleKeyDown = (e: KeyboardEvent) => {
     switch (e.key) {
       case "ArrowUp":
@@ -61,10 +50,6 @@ export function Editor() {
         e.preventDefault();
         addNewLine();
         break;
-      case "Backspace":
-        e.preventDefault();
-        if (isEmptyLine(activeLine)) deleteLine(activeLine);
-        break;
       default:
         break;
     }
@@ -72,7 +57,6 @@ export function Editor() {
 
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown);
-
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
