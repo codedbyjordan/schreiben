@@ -4,13 +4,20 @@ import { parseAndSanitizeLine } from "../helpers/parseAndSanitizeLine";
 import { moveCursorToEnd } from "../utils/moveCursorToEnd";
 
 type LineProps = {
-  setActiveLine: Dispatch<SetStateAction<number>>;
+  setActiveLine: Dispatch<SetStateAction<string>>;
   isActive: boolean;
-  lineNumber: number;
+  id: string;
+  setLineContent: (newContent: string) => void;
+  lineContent: string;
 };
 
-export function Line({ setActiveLine, isActive, lineNumber }: LineProps) {
-  const [lineContent, setLineContent] = useState("");
+export function Line({
+  setActiveLine,
+  isActive,
+  id,
+  setLineContent,
+  lineContent,
+}: LineProps) {
   const lineRef = useRef<HTMLDivElement>(null);
 
   const formatLine = async () => {
@@ -39,7 +46,7 @@ export function Line({ setActiveLine, isActive, lineNumber }: LineProps) {
       ref={lineRef}
       dangerouslySetInnerHTML={{ __html: lineContent }}
       onBlur={formatLine}
-      onFocus={() => setActiveLine(lineNumber)}
+      onFocus={() => setActiveLine(id)}
     />
   );
 }

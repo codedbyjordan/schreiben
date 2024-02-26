@@ -1,24 +1,18 @@
 import { useState } from "react";
 import { Line } from "./Line";
 import { useRegisterEditorKeybinds } from "../hooks/useRegisterEditorKeybinds";
+import { useImmer } from "use-immer";
 
 export function Editor() {
-  const [lineCount, setLineCount] = useState(1);
-  const [activeLine, setActiveLine] = useState(0);
+  const [lines, setLines] = useImmer<Map<string, string>>(
+    new Map().set(crypto.randomUUID(), ""),
+  );
+  const [activeLine, setActiveLine] = useState<string>("");
 
   const addNewLine = () => {
-    setLineCount(lineCount + 1);
-    setActiveLine(activeLine + 1);
-  };
-
-  const moveUpLine = () => {
-    if (activeLine === 0) return;
-    setActiveLine(activeLine - 1);
-  };
-
-  const moveDownLine = () => {
-    if (activeLine === lineCount - 1) return;
-    setActiveLine(activeLine + 1);
+    setLines((lines) => {
+      lines.set(crypto.randomUUID(), "");
+    });
   };
 
   useRegisterEditorKeybinds({
@@ -26,11 +20,11 @@ export function Editor() {
       switch (e.key) {
         case "ArrowUp":
           e.preventDefault();
-          moveUpLine();
+          // moveUpLine();
           break;
         case "ArrowDown":
           e.preventDefault();
-          moveDownLine();
+          // moveDownLine();
           break;
         case "Enter":
           e.preventDefault();
@@ -42,16 +36,27 @@ export function Editor() {
     },
   });
 
+  const setLineContent = (id: string, newContent: string) => {
+    setLines((lines) => {
+      if (lines.has(id)) lines.set(id, newContent);
+    });
+  };
+
   return (
-    <div className="flex w-1/3 flex-col gap-1">
-      {Array.from({ length: lineCount }, (_, i) => (
-        <Line
-          key={i}
-          setActiveLine={setActiveLine}
-          isActive={i === activeLine}
-          lineNumber={i}
-        />
-      ))}
+    <div className="flex w-1/3 flex-col gap-1 ring-1 ring-green-400">
+      {[...lines.keys()].map((lineId) => {
+        const lineContent = lines.get(lineId);
+        return (
+          <Line
+            key={lineId}
+            id={lineId}
+            setActiveLine={setActiveLine}
+            lineContent={lineContent || ""}
+            setLineContent={(newContent) => setLineContent(lineId, newContent)}
+            isActive={lineId === activeLine}
+          />
+        );
+      })}
     </div>
   );
 }
