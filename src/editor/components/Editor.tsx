@@ -1,88 +1,22 @@
-import { useEffect, useState } from "react";
-import { useImmer } from "use-immer";
-import { Line } from "./Line";
+import { EditorProvider } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
+
+const extensions = [StarterKit];
 
 export function Editor() {
-  const [lines, setLines] = useImmer<Map<string, string>>(
-    new Map().set(crypto.randomUUID(), ""),
-  );
-  const [activeLine, setActiveLine] = useState<string>(
-    lines.keys().next().value,
-  );
-
-  const addNewLine = () => {
-    const newLineId = crypto.randomUUID();
-    setLines((lines) => {
-      lines.set(newLineId, "");
-    });
-    setActiveLine(newLineId);
-  };
-
-  const moveUpLine = () => {
-    setActiveLine((activeLine) => {
-      const keys = Array.from(lines.keys());
-      const index = keys.indexOf(activeLine);
-      if (index === 0) return activeLine;
-      return keys[index - 1];
-    });
-  };
-
-  const moveDownLine = () => {
-    setActiveLine((activeLine) => {
-      const keys = Array.from(lines.keys());
-      const index = keys.indexOf(activeLine);
-      if (index === keys.length - 1) return activeLine;
-      return keys[index + 1];
-    });
-  };
-
-  const handleKeyDown = (e: KeyboardEvent) => {
-    switch (e.key) {
-      case "ArrowUp":
-        e.preventDefault();
-        moveUpLine();
-        break;
-      case "ArrowDown":
-        e.preventDefault();
-        moveDownLine();
-        break;
-      case "Enter":
-        e.preventDefault();
-        addNewLine();
-        break;
-      default:
-        break;
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener("keydown", handleKeyDown);
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [handleKeyDown]);
-
-  const setLineContent = (id: string, newContent: string) => {
-    setLines((lines) => {
-      if (lines.has(id)) lines.set(id, newContent);
-    });
-  };
-
   return (
-    <div className="flex w-1/3 flex-col gap-1 p-2 ring-1 ring-green-400">
-      {[...lines.keys()].map((lineId) => {
-        const lineContent = lines.get(lineId);
-        return (
-          <Line
-            key={lineId}
-            id={lineId}
-            setActiveLine={setActiveLine}
-            lineContent={lineContent || ""}
-            setLineContent={(newContent) => setLineContent(lineId, newContent)}
-            isActive={lineId === activeLine}
-          />
-        );
-      })}
+    <div className="w-full [&>*]:flex [&>*]:w-full [&>*]:justify-center">
+      <EditorProvider
+        extensions={extensions}
+        editorProps={{
+          attributes: {
+            class:
+              "flex w-1/3 flex-col gap-1 p-2 ring-1 ring-green-400 focus:outline-none",
+          },
+        }}
+      >
+        <></>
+      </EditorProvider>
     </div>
   );
 }
