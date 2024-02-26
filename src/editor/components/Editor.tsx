@@ -7,7 +7,9 @@ export function Editor() {
   const [lines, setLines] = useImmer<Map<string, string>>(
     new Map().set(crypto.randomUUID(), ""),
   );
-  const [activeLine, setActiveLine] = useState<string>("");
+  const [activeLine, setActiveLine] = useState<string>(
+    lines.keys().next().value,
+  );
 
   const addNewLine = () => {
     const newLineId = crypto.randomUUID();
