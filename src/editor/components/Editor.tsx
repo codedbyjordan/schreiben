@@ -10,9 +10,11 @@ export function Editor() {
   const [activeLine, setActiveLine] = useState<string>("");
 
   const addNewLine = () => {
+    const newLineId = crypto.randomUUID();
     setLines((lines) => {
-      lines.set(crypto.randomUUID(), "");
+      lines.set(newLineId, "");
     });
+    setActiveLine(newLineId);
   };
 
   const moveUpLine = () => {
