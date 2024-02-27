@@ -3,25 +3,33 @@
 @tailwind utilities;
 
 .tiptap > h1 {
-  @apply text-4xl font-semibold;
+  @apply text-[28px] font-bold;
 }
 
 .tiptap > h2 {
-  @apply text-2xl font-semibold;
+  @apply text-xl font-bold;
 }
 
 .tiptap > h3 {
-  @apply text-xl font-semibold;
+  @apply text-lg font-bold;
 }
 
 .tiptap > h4 {
-  @apply text-lg font-semibold;
+  @apply font-bold;
 }
 
 .tiptap > h5 {
-  @apply font-semibold;
+  @apply text-sm font-bold;
 }
 
 .tiptap > h6 {
-  @apply text-sm font-semibold;
+  @apply text-xs font-bold;
+}
+
+.tiptap > ul {
+  @apply list-inside list-disc;
+}
+
+.tiptap > ol {
+  @apply list-inside list-decimal;
 }

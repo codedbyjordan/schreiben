@@ -10,8 +10,7 @@ export function Editor() {
         extensions={extensions}
         editorProps={{
           attributes: {
-            class:
-              "flex w-1/3 flex-col gap-1 p-2 ring-1 ring-green-400 focus:outline-none",
+            class: "flex w-full flex-col px-12 py-6 focus:outline-none",
           },
         }}
       >
