@@ -1,7 +1,7 @@
+import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { FileEntry, readTextFile } from "@tauri-apps/api/fs";
-import { useActiveFileStore } from "../hooks/useActiveFileStore";
 import { useState } from "react";
-import { ChevronDownIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import { useActiveFileStore } from "../hooks/useActiveFileStore";
 
 type FolderProps = FileEntry;
 
