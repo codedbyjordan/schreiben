@@ -17,6 +17,9 @@
         "all": true,
         "scope": ["$APPDATA", "$HOME/*"]
       },
+      "window": {
+        "all": true
+      },
       "path": {
         "all": true
       }
@@ -66,7 +69,8 @@
         "height": 600,
         "resizable": true,
         "title": "schreiben",
-        "width": 800
+        "width": 800,
+        "decorations": false
       }
     ]
   }
