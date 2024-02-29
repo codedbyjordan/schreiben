@@ -15,7 +15,8 @@
       "all": false,
       "fs": {
         "all": true,
-        "scope": ["$APPDATA", "$HOME/*"]
+        "readFile": true,
+        "scope": ["$APPDATA", "$HOME/**"]
       },
       "window": {
         "all": true
