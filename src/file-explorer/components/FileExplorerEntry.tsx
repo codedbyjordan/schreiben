@@ -1,6 +1,7 @@
 import { FileEntry, readTextFile } from "@tauri-apps/api/fs";
 import { useActiveFileStore } from "../hooks/useActiveFileStore";
 import { useState } from "react";
+import { ChevronDownIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 
 type FolderProps = FileEntry;
 
@@ -18,21 +19,26 @@ export function FileExplorerEntry({ name, path, children }: FolderProps) {
     });
   };
 
+  const isFolder = !!children;
+
   const toggleOrSetActiveFile = ({
     name,
     path,
   }: Omit<FileEntry, "children">) => {
-    if (children) setIsOpen(!isOpen);
+    if (isFolder) setIsOpen(!isOpen);
     else setActiveFile({ name, path });
   };
 
   return (
     <div className="flex flex-col items-start gap-1">
       <button
-        className="rounded-sm transition-colors hover:bg-neutral-600"
+        className="flex items-center gap-1 rounded-sm transition-colors hover:bg-neutral-600"
         onClick={() => toggleOrSetActiveFile({ name, path })}
       >
-        {name}
+        {isFolder && (
+          <ChevronRightIcon className={`h-4 w-4 ${isOpen && "rotate-90"}`} />
+        )}
+        <span>{name}</span>
       </button>
       {isOpen && (
         <div className="ml-4">
