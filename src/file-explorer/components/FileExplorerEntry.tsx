@@ -21,7 +21,7 @@ export function FileExplorerEntry({ name, path, children }: FolderProps) {
     <div className="flex flex-col gap-1">
       <button
         className="rounded-sm transition-colors hover:bg-neutral-600"
-        onClick={() => setActiveFile({ name, path })}
+        onClick={() => !children && setActiveFile({ name, path })}
       >
         {name}
       </button>
