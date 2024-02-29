@@ -21,7 +21,9 @@
     "@types/node": "^20.11.20",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "tailwind-merge": "^2.2.1"
+    "tailwind-merge": "^2.2.1",
+    "tiptap-markdown": "^0.8.9",
+    "zustand": "^4.5.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.56",
